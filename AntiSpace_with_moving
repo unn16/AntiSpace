@@ -1,0 +1,35 @@
+from tkinter import Tk, Canvas, mainloop, NW
+from PIL import Image, ImageTk
+
+window_width = 450
+window_height = 800
+tk = Tk()
+c = Canvas(tk, width=window_width, height=window_height, bg='white')
+c.pack()
+sky_image = ImageTk.PhotoImage(Image.open('images/sky.jpg').resize((window_width, window_height)))
+ship_image = ImageTk.PhotoImage(Image.open('images/ship.jpg').resize((60, 60)))
+sky = c.create_image(0, 0, image=sky_image, anchor=NW)
+ship = c.create_image(225, 600, image=ship_image, anchor=NW)
+
+
+def knopki(key):
+    if key.char == 'a':
+        x, y = c.coords(ship)
+        if x > 0:
+            c.move(ship,  - 10, 0)
+    if key.char == 'd':
+        x, y = c.coords(ship)
+        if x < window_width:
+            c.move(ship, 10, 0)
+    if key.char == 'w':
+        x, y = c.coords(ship)
+        if y > 0:
+            c.move(ship, 0, -10)
+    if key.char == 's':
+        x, y = c.coords(ship)
+        if y > -window_height:
+            c.move(ship, 0, 10)
+
+
+tk.bind("<KeyPress>", knopki)
+mainloop()
