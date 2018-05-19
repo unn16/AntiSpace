@@ -21,4 +21,4 @@ for i in range(1):
 
 player_image = ImageTk.PhotoImage((Image.open("ship.png").convert('RGBA').resize((80,80))))
 
-player = c.create_image(window_width/2-40, window_height-80, image=player_image, anchor=NW)
+player = c.create_image(window_width/2-40, window_height-180, image=player_image, anchor=NW)
