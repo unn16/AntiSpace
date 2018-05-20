@@ -45,16 +45,20 @@ def loop():
         c.move(bullet, 0, -10)
     c.after(5, loop)
 
-
 def add_meteor():
     vremya = random.randint(2000, 5000)
     distance = random.randint(0, 410)
     meteor = c.create_image(distance, -80, image=meteor_image, anchor=NW)
     meteors.append(meteor)
+    meteorx, meteory = c.coords(meteor)
+    for meteor in meteors[:]:
+        if meteory > 750:
+            c.delete(meteor)
+            meteors.remove(meteor)
     c.after(vremya, add_meteor)
 def dvizh():
     for meteor in meteors:
-        c.move(meteor, 0, 3)
+        c.move(meteor, 0, 5)
     c.after(50, dvizh)
 
 tk.bind("<KeyPress>", knopki)
