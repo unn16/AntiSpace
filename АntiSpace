@@ -37,15 +37,15 @@ vremya = random.randint(2000, 5000)
 meteors = []
 
 def add_meteor():
-    distance = random.randint(0, 410)
     vremya = random.randint(2000, 5000)
+    distance = random.randint(0, 410)
     meteor = c.create_image(distance, -80, image=meteor_image, anchor=NW)
     meteors.append(meteor)
+    c.after(vremya, add_meteor)
 def dvizh():
     for meteor in meteors:
         c.move(meteor, 0, 1)
-def xtraf():
-    c.after(vremya, add_meteor)
-    c.after(500, dvizh)
-    c.after(50, xtraf)
-c.after(50, xtraf)
+    c.after(50, dvizh)
+
+add_meteor()
+dvizh()
