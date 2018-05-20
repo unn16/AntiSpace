@@ -1,25 +1,26 @@
 from tkinter import Tk, Canvas, mainloop, NW
 from PIL import Image, ImageTk
+import time, random
 
 window_width = 450
-window_height = 800
+window_height = 750
 tk = Tk()
 c = Canvas(tk, width=window_width, height=window_height, bg='white')
 c.pack()
-sky_image = ImageTk.PhotoImage(Image.open('images/sky.jpg').resize((window_width, window_height)))
-ship_image = ImageTk.PhotoImage(Image.open('images/ship.gif').resize((60, 60)))
+sky_image = ImageTk.PhotoImage(Image.open('sky.jpg').resize((window_width, window_height)))
+ship_image = ImageTk.PhotoImage(Image.open('ship.png').resize((80, 80)))
+meteor_image = ImageTk.PhotoImage(Image.open('meteor.png').resize((40, 80)))
 sky = c.create_image(0, 0, image=sky_image, anchor=NW)
-ship = c.create_image(195, 600, image=ship_image, anchor=NW)
-
+ship = c.create_image(185, 600, image=ship_image, anchor=NW)
 
 def knopki(key):
     if key.char == 'a':
         x, y = c.coords(ship)
         if x > 0:
-            c.move(ship, - 10, 0)
+            c.move(ship, -10, 0)
     if key.char == 'd':
         x, y = c.coords(ship)
-        if x < 390:
+        if x+80 < window_width:
             c.move(ship, 10, 0)
     if key.char == 'w':
         x, y = c.coords(ship)
@@ -27,9 +28,24 @@ def knopki(key):
             c.move(ship, 0, -10)
     if key.char == 's':
         x, y = c.coords(ship)
-        if y < 720:
+        if y+80 < window_height:
             c.move(ship, 0, 10)
-
-
 tk.bind("<KeyPress>", knopki)
-mainloop()
+
+vremya = random.randint(2000, 5000)
+
+meteors = []
+
+def add_meteor():
+    distance = random.randint(0, 410)
+    vremya = random.randint(2000, 5000)
+    meteor = c.create_image(distance, -80, image=meteor_image, anchor=NW)
+    meteors.append(meteor)
+def dvizh():
+    for meteor in meteors:
+        c.move(meteor, 0, 1)
+def xtraf():
+    c.after(vremya, add_meteor)
+    c.after(500, dvizh)
+    c.after(50, xtraf)
+c.after(50, xtraf)
