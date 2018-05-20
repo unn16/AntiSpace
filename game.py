@@ -114,10 +114,6 @@ def ShootingMeteors():
                 break
     c.after(50, ShootingMeteors)
 
-def SummonStarter(key):
-    if key.char == ' ':
-        starter()
-
 
 
 
