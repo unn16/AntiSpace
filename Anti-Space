@@ -38,7 +38,7 @@ def starter():
         HPLabel = c.create_text(10, 10, width=300, text="Health Points: " + str(hp), fill='#fff', anchor=NW)
 
     def get_bullet(x, y):
-        bullet = c.create_image(x, y, image=bullet_image, anchor=N)
+        bullet = c.create_image(x, y, image=bullet_image, anchor=NW)
         bullets.append(bullet)
 
 
@@ -73,7 +73,7 @@ def starter():
     def add_meteor():
         vremya = random.randint(750, 1500)
         distance = random.randint(0, 410)
-        meteor = c.create_image(distance, -80, image=meteor_image)
+        meteor = c.create_image(distance, -80, image=meteor_image, anchor=NW)
         meteors.append(meteor)
         c.after(vremya, add_meteor)
 
@@ -107,8 +107,7 @@ def starter():
         global window_width
         if hp == 0:
             c.delete(ship)
-            EndText = c.create_text(100, 300, width=500, text="Game over", fill='#FF0000', anchor=NW,
-                                    font=("Courier", 44))
+            EndText = c.create_text(75, 325, width=500, text="Game over", fill='#FF0000', anchor=NW, font=("Courier", 44))
             c.after(3000, lambda: exit())
 
     def ShootingMeteors():
